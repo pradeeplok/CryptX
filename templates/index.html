@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptX | Intelligent Security Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>CryptX</h1>
+        <p class="subtitle">Next-Gen Cryptographic Vulnerability Engine</p>
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('paste')">Code Analysis</div>
+        <div class="tab" onclick="showTab('upload')">File Upload</div>
+        <div class="tab" onclick="showTab('cipher')">Cipher ID</div>
+        <div class="tab" onclick="showTab('demo')">Live Demos</div>
+        <div class="tab" onclick="showTab('history')">History</div>
+    </div>
+
+    <div id="paste-tab" class="tab-content active">
+        <div class="container glass-panel">
+            <h3>Enter your cryptographic code (Python, Java, Dart, etc.):</h3>
+            <textarea id="codeInput"
+                placeholder="Paste your code here... (CodeBERT will analyze patterns across languages)">from cryptography.fernet import Fernet
+key = Fernet.generate_key()
+cipher = Fernet(key)</textarea>
+            <div class="actions">
+                <button onclick="analyzeCode()">Analyze Code</button>
+                <button class="secondary" onclick="clearCode()">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="upload-tab" class="tab-content">
+        <div class="container glass-panel">
+            <h3>Upload a Python file:</h3>
+            <div class="file-upload">
+                <input type="file" id="fileInput" accept=".py,.txt" onchange="handleFileUpload()">
+                <p><small>Supported formats: .py, .txt files</small></p>
+            </div>
+            <div id="filePreview" style="display: none;">
+                <h4>File Preview:</h4>
+                <textarea id="fileContent" readonly style="height: 150px;"></textarea>
+                <div class="actions">
+                    <button onclick="analyzeFile()">Analyze File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cipher-tab" class="tab-content">
+        <div class="container glass-panel">
+            <h3>Cipher Algorithm Identifier</h3>
+            <p>Paste ciphertext (hexadecimal format) to identify the encryption algorithm used.</p>
+            <textarea id="hexInput" placeholder="Paste hexadecimal ciphertext here... (e.g., A4 23 69 9F...)"
+                style="height: 120px; font-family: 'Fira Code', monospace;"></textarea>
+            <div class="actions">
+                <button onclick="identifyCipher()">Identify Algorithm</button>
+                <button class="secondary" onclick="clearHex()">Clear</button>
+            </div>
+            <div id="cipherResult" style="display: none; margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <div id="demo-tab" class="tab-content">
+        <div class="container glass-panel">
+            <h3>Security Vulnerability Demonstrations</h3>
+
+            <div class="explainability-demo">
+                <h4>ECB Mode Pattern Leakage Demo</h4>
+                <p>Electronic Codebook (ECB) mode encrypts identical blocks identically, making patterns visible even
+                    after encryption.</p>
+                <p><strong>Try this vulnerable code:</strong></p>
+                <div class="code-snippet">
+                    from Crypto.Cipher import AES
+                    # ... [More code here] ...
+                </div>
+            </div>
+
+            <div class="explainability-demo" style="margin-top: 30px;">
+                <h4>CBC Mode vs ECB Mode</h4>
+                <p>Visual comparison of encryption modes.</p>
+                <button onclick="runCbcDemo()">Run CBC Demo</button>
+                <div id="cbc-demo-result" style="display: none; margin-top: 15px;">
+                    <img id="cbc-image" src="" class="demo-img">
+                    <p id="cbc-explanation"></p>
+                </div>
+            </div>
+
+            <div class="explainability-demo" style="margin-top: 30px;">
+                <h4>CBC Bit Flipping Attack</h4>
+                <button onclick="runBitFlipDemo()">Run Bit Flip Demo</button>
+                <div id="bitflip-demo-result" style="display: none; margin-top: 15px;">
+                    <div class="result-grid">
+                        <p><strong>Original:</strong> <span id="bf-original"></span></p>
+                        <p><strong>Decrypted:</strong> <span id="bf-decrypted" class="highlight-red"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="history-tab" class="tab-content">
+        <div class="container glass-panel">
+            <h3>Analysis History</h3>
+            <div id="history-list">
+                <p>Loading history...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="result" class="result" style="display: none;"></div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

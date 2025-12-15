@@ -1,0 +1,17 @@
+Flask==2.3.3
+flask-cors==4.0.0
+openai>=1.0.0
+Pillow
+httpx==0.24.1
+python-dotenv==1.0.0
+waitress
+pytest
+transformers
+torch
+xhtml2pdf
+numpy
+scikit-learn
+joblib
+scipy
+shap
+tf-keras
